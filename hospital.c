@@ -1,6 +1,5 @@
 #include "hospital.h"
 
-// Lookup Data Definition (Requirement 1)
 const char *SPECIALTY_NAMES[NUM_SPECIALTIES] = {"General Practice (OPD)", "Paediatrics", "Cardiology", "Neurology"};
 const double BASE_FEES[NUM_SPECIALTIES] = {1500.00, 2500.00, 4500.00, 5000.00};
 const int CONSULTATION_TIMES[NUM_SPECIALTIES] = {15, 20, 30, 30};
@@ -9,21 +8,19 @@ const char *WARD_NAMES[NUM_WARDS] = {"General Ward", "Paediatric Ward", "Surgica
 const double WARD_RATES[NUM_WARDS] = {3000.00, 6000.00, 12000.00, 25000.00};
 const int WARD_CAPACITIES[NUM_WARDS] = {20, 10, 10, 5};
 
-// System State Variables
-int bedOccupancy[4][20] = {0}; // 0 = Available, 1 = Occupied
+
+int bedOccupancy[4][20] = {0}; 
 int specialtyQueueCounts[NUM_SPECIALTIES] = {0};
 
-// Parallel Arrays for Patient Records (Requirement 2)
 int patientIDs[MAX_PATIENTS];
 char patientNames[MAX_PATIENTS][50];
 int patientAges[MAX_PATIENTS];
-int urgencyLevels[MAX_PATIENTS]; // 1=Normal, 2=Urgent, 3=Critical
-int selectedSpecialties[MAX_PATIENTS]; // 0 to 3
-int isAdmitted[MAX_PATIENTS]; // 1=Yes, 0=No
-int assignedWards[MAX_PATIENTS]; // 0 to 3
+int urgencyLevels[MAX_PATIENTS];
+int selectedSpecialties[MAX_PATIENTS]; 
+int isAdmitted[MAX_PATIENTS]; 
+int assignedWards[MAX_PATIENTS]; 
 int daysAdmitted[MAX_PATIENTS];
 
-// Calculated Billing Data Arrays (Requirement 3)
 double baseFees[MAX_PATIENTS];
 double surcharges[MAX_PATIENTS];
 double wardCosts[MAX_PATIENTS];
@@ -58,7 +55,7 @@ void registerPatient() {
     printf("\n--- Patient Registration (ID: PAT-%d) ---\n", patientIDs[idx]);
 
     printf("Enter Patient Name: ");
-    getchar(); // Clear newline buffer
+    getchar(); 
     fgets(patientNames[idx], sizeof(patientNames[idx]), stdin);
     patientNames[idx][strcspn(patientNames[idx], "\n")] = 0;
 
@@ -127,11 +124,11 @@ void registerPatient() {
 void calculateBillingInfo(int idx) {
     int specIdx = selectedSpecialties[idx];
 
-    // Wait Time Calculation
+    
     waitTimes[idx] = specialtyQueueCounts[specIdx] * CONSULTATION_TIMES[specIdx];
     specialtyQueueCounts[specIdx]++;
 
-    // Base Fee & Emergency Surcharge
+    
     baseFees[idx] = BASE_FEES[specIdx];
     if (urgencyLevels[idx] == 1) {
         surcharges[idx] = 0.0;
@@ -141,24 +138,24 @@ void calculateBillingInfo(int idx) {
         surcharges[idx] = baseFees[idx] * 0.50;
     }
 
-    // Ward Cost Calculation
+    
     if (isAdmitted[idx] == 1) {
         wardCosts[idx] = daysAdmitted[idx] * WARD_RATES[assignedWards[idx]];
     } else {
         wardCosts[idx] = 0.0;
     }
 
-    // Gross Total Bill
+    
     grossTotals[idx] = baseFees[idx] + surcharges[idx] + wardCosts[idx];
 
-    // Age Subsidy Discount Calculation
+    
     if (patientAges[idx] < 5 || patientAges[idx] > 65) {
         discounts[idx] = grossTotals[idx] * 0.15;
     } else {
         discounts[idx] = 0.0;
     }
 
-    // Final Payable Amount
+    
     finalAmounts[idx] = grossTotals[idx] - discounts[idx];
 }
 
