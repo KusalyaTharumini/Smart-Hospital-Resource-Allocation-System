@@ -1,14 +1,14 @@
 #include "hospital.h"
 
 int main() {
-    loadBedStatusFromFile(); // Load saved bed occupancy if exists
+    loadBedStatusFromFile(); 
     int choice;
 
     do {
         displayMenu();
         printf("Enter your choice (1-5): ");
         if (scanf("%d", &choice) != 1) {
-            while (getchar() != '\n'); // Clear input buffer
+            while (getchar() != '\n'); 
             continue;
         }
 
