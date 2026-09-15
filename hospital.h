@@ -18,7 +18,6 @@ const char *WARD_NAMES[NUM_WARDS];
 const double WARD_RATES[NUM_WARDS];
 const int WARD_CAPACITIES[NUM_WARDS];
 
-// Function Prototypes
 void displayMenu();
 void registerPatient();
 void calculateBillingInfo(int index);
@@ -29,4 +28,4 @@ void saveBedStatusToFile();
 void loadBedStatusFromFile();
 void appendPatientRecordToFile(int index);
 
-#endif // HOSPITAL_H
+#endif
