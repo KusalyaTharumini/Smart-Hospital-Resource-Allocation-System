@@ -1,0 +1,29 @@
+void saveBedStatusToFile();
+void loadBedStatusFromFile();
+void appendPatientRecordToFile(int idx);
+
+void saveBedStatusToFile() {
+    FILE *fp = fopen("beds_status.txt", "w");
+    if (!fp) return;
+    for (int w = 0; w < NUM_WARDS; w++) {
+        for (int b = 0; b < WARD_CAPACITIES[w]; b++) fprintf(fp, "%d ", bedOccupancy[w][b]);
+        fprintf(fp, "\n");
+    }
+    fclose(fp);
+}
+
+void loadBedStatusFromFile() {
+    FILE *fp = fopen("beds_status.txt", "r");
+    if (!fp) return;
+    for (int w = 0; w < NUM_WARDS; w++) {
+        for (int b = 0; b < WARD_CAPACITIES[w]; b++) fscanf(fp, "%d", &bedOccupancy[w][b]);
+    }
+    fclose(fp);
+}
+
+void appendPatientRecordToFile(int idx) {
+    FILE *fp = fopen("patient_records.txt", "a");
+    if (!fp) return;
+    fprintf(fp, "PAT-%d | %s | Final Bill: LKR %.2f\n", patientIDs[idx], patientNames[idx], finalAmounts[idx]);
+    fclose(fp);
+}
