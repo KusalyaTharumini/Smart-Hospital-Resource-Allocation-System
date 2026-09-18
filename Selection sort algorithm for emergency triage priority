@@ -1,0 +1,30 @@
+void displayTriageSortedPatients();
+
+void displayTriageSortedPatients() {
+    if (totalPatients == 0) {
+        printf("\nNo patient records available.\n");
+        return;
+    }
+
+    int order[MAX_PATIENTS];
+    for (int i = 0; i < totalPatients; i++) order[i] = i;
+
+    for (int i = 0; i < totalPatients - 1; i++) {
+        int maxIdx = i;
+        for (int j = i + 1; j < totalPatients; j++) {
+            if (urgencyLevels[order[j]] > urgencyLevels[order[maxIdx]]) {
+                maxIdx = j;
+            }
+        }
+        int temp = order[i];
+        order[i] = order[maxIdx];
+        order[maxIdx] = temp;
+    }
+
+    printf("\n================ TRIAGE PRIORITY QUEUE ================\n");
+    for (int i = 0; i < totalPatients; i++) {
+        int idx = order[i];
+        printf("PAT-%d | %s | Level %d | Bill: LKR %.2f\n",
+               patientIDs[idx], patientNames[idx], urgencyLevels[idx], finalAmounts[idx]);
+    }
+}
