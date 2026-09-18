@@ -1,0 +1,27 @@
+void calculateBillingInfo(int idx);
+
+double baseFees[MAX_PATIENTS];
+double surcharges[MAX_PATIENTS];
+double wardCosts[MAX_PATIENTS];
+double grossTotals[MAX_PATIENTS];
+double discounts[MAX_PATIENTS];
+double finalAmounts[MAX_PATIENTS];
+double waitTimes[MAX_PATIENTS];
+
+void calculateBillingInfo(int idx) {
+    int specIdx = selectedSpecialties[idx];
+
+    waitTimes[idx] = specialtyQueueCounts[specIdx] * CONSULTATION_TIMES[specIdx];
+    specialtyQueueCounts[specIdx]++;
+
+    baseFees[idx] = BASE_FEES[specIdx];
+    if (urgencyLevels[idx] == 1) surcharges[idx] = 0.0;
+    else if (urgencyLevels[idx] == 2) surcharges[idx] = baseFees[idx] * 0.20;
+    else surcharges[idx] = baseFees[idx] * 0.50;
+
+    wardCosts[idx] = (isAdmitted[idx] == 1) ? (daysAdmitted[idx] * WARD_RATES[assignedWards[idx]]) : 0.0;
+    grossTotals[idx] = baseFees[idx] + surcharges[idx] + wardCosts[idx];
+
+    discounts[idx] = (patientAges[idx] < 5 || patientAges[idx] > 65) ? (grossTotals[idx] * 0.15) : 0.0;
+    finalAmounts[idx] = grossTotals[idx] - discounts[idx];
+}
