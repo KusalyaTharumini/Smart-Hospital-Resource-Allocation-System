@@ -1,0 +1,24 @@
+void generatePerformanceReport();
+
+void generatePerformanceReport() {
+    if (totalPatients == 0) return;
+
+    double totalRevenue = 0.0, totalDiscounts = 0.0;
+    for (int i = 0; i < totalPatients; i++) {
+        totalRevenue += finalAmounts[i];
+        totalDiscounts += discounts[i];
+    }
+
+    printf("\n================ PERFORMANCE REPORT ================\n");
+    printf("Total Patients: %d\n", totalPatients);
+    printf("Total Revenue : LKR %.2f\n", totalRevenue);
+    printf("Total Discount: LKR %.2f\n", totalDiscounts);
+    
+    for (int w = 0; w < NUM_WARDS; w++) {
+        int occ = 0;
+        for (int b = 0; b < WARD_CAPACITIES[w]; b++) {
+            if (bedOccupancy[w][b] == 1) occ++;
+        }
+        printf("%s Occupancy: %.2f%%\n", WARD_NAMES[w], ((double)occ/WARD_CAPACITIES[w])*100.0);
+    }
+}
