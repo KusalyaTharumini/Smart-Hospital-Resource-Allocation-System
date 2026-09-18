@@ -1,0 +1,78 @@
+#ifndef HOSPITAL_H
+#define HOSPITAL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_PATIENTS 100
+#define NUM_SPECIALTIES 4
+#define NUM_WARDS 4
+
+extern const char *SPECIALTY_NAMES[NUM_SPECIALTIES];
+extern const double BASE_FEES[NUM_SPECIALTIES];
+extern const int CONSULTATION_TIMES[NUM_SPECIALTIES];
+
+extern const char *WARD_NAMES[NUM_WARDS];
+extern const double WARD_RATES[NUM_WARDS];
+extern const int WARD_CAPACITIES[NUM_WARDS];
+
+void displayMenu();
+void registerPatient();
+void calculateBillingInfo(int index);
+void displayPatientBill(int index);
+void displayTriageSortedPatients();
+void generatePerformanceReport();
+void saveBedStatusToFile();
+void loadBedStatusFromFile();
+void appendPatientRecordToFile(int index);
+
+#include "hospital.h"
+
+int main() {
+    loadBedStatusFromFile(); // Load saved bed state on startup
+    int choice;
+
+    do {
+        displayMenu();
+        printf("Enter your choice (1-5): ");
+        if (scanf("%d", &choice) != 1) {
+            while (getchar() != '\n'); // Clear input buffer
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                registerPatient();
+                break;
+            case 2:
+                displayTriageSortedPatients();
+                break;
+            case 3:
+                generatePerformanceReport();
+                break;
+            case 4:
+                saveBedStatusToFile();
+                printf("Bed statuses saved successfully.\n");
+                break;
+            case 5:
+                saveBedStatusToFile();
+                printf("Exiting system. Goodbye!\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    } while (choice != 5);
+
+    calculateBillingInfo(idx);
+    displayPatientBill(idx);
+    appendPatientRecordToFile(idx);
+
+    totalPatients++;
+
+    return 0;
+}
+
+
+
+#endif
