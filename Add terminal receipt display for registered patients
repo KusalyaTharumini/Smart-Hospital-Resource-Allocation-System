@@ -1,0 +1,17 @@
+void displayPatientBill(int idx);
+
+void displayPatientBill(int idx) {
+    printf("\n-------------------------------------------------------------\n");
+    printf("             SMART HOSPITAL ADMISSION & BILL                 \n");
+    printf("-------------------------------------------------------------\n");
+    printf("Patient ID              : PAT-%d\n", patientIDs[idx]);
+    printf("Patient Name            : %s\n", patientNames[idx]);
+    printf("Base Consultation Fee   : LKR %.2f\n", baseFees[idx]);
+    printf("Emergency Surcharge     : LKR %.2f\n", surcharges[idx]);
+    printf("Ward Stay Cost (%d Days): LKR %.2f\n", daysAdmitted[idx], wardCosts[idx]);
+    printf("Gross Total Bill        : LKR %.2f\n", grossTotals[idx]);
+    printf("Age Subsidy Discount    : LKR -%.2f\n", discounts[idx]);
+    printf("Final Payable Amount    : LKR %.2f\n", finalAmounts[idx]);
+    printf("Estimated Waiting Time  : %.2f mins\n", waitTimes[idx]);
+    printf("-------------------------------------------------------------\n");
+}
