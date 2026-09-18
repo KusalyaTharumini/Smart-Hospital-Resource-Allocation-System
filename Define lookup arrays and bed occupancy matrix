@@ -1,0 +1,39 @@
+#ifndef HOSPITAL_H
+#define HOSPITAL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_PATIENTS 100
+#define NUM_SPECIALTIES 4
+#define NUM_WARDS 4
+
+extern const char *SPECIALTY_NAMES[NUM_SPECIALTIES];
+extern const double BASE_FEES[NUM_SPECIALTIES];
+extern const int CONSULTATION_TIMES[NUM_SPECIALTIES];
+
+extern const char *WARD_NAMES[NUM_WARDS];
+extern const double WARD_RATES[NUM_WARDS];
+extern const int WARD_CAPACITIES[NUM_WARDS];
+
+void displayMenu();
+
+#include "hospital.h"
+
+const char *SPECIALTY_NAMES[NUM_SPECIALTIES] = {"General Practice (OPD)", "Paediatrics", "Cardiology", "Neurology"};
+const double BASE_FEES[NUM_SPECIALTIES] = {1500.00, 2500.00, 4500.00, 5000.00};
+const int CONSULTATION_TIMES[NUM_SPECIALTIES] = {15, 20, 30, 30};
+
+const char *WARD_NAMES[NUM_WARDS] = {"General Ward", "Paediatric Ward", "Surgical Ward", "ICU"};
+const double WARD_RATES[NUM_WARDS] = {3000.00, 6000.00, 12000.00, 25000.00};
+const int WARD_CAPACITIES[NUM_WARDS] = {20, 10, 10, 5};
+
+int bedOccupancy[4][20] = {0}; // Bed Status Matrix
+int specialtyQueueCounts[NUM_SPECIALTIES] = {0};
+
+void displayMenu() {
+    // Menu logic
+}
+
+#endif
