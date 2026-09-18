@@ -1,0 +1,37 @@
+#ifndef HOSPITAL_H
+#define HOSPITAL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void displayMenu();
+
+#endif
+
+#include "hospital.h"
+
+int main() {
+    int choice;
+    do {
+        displayMenu();
+        printf("Enter your choice (1-5): ");
+        if (scanf("%d", &choice) != 1) {
+            while (getchar() != '\n');
+            continue;
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+void displayMenu() {
+    printf("\n=============================================\n");
+    printf("   SMART HOSPITAL RESOURCE ALLOCATION SYSTEM \n");
+    printf("=============================================\n");
+    printf("1. Register New Patient Intake & Bill\n");
+    printf("2. Display Emergency Triage Priority List\n");
+    printf("3. Generate Analytics & Performance Report\n");
+    printf("4. Save Bed Status to File\n");
+    printf("5. Exit System\n");
+    printf("=============================================\n");
+}
