@@ -1,0 +1,48 @@
+void registerPatient();
+
+// Parallel Arrays
+int patientIDs[MAX_PATIENTS];
+char patientNames[MAX_PATIENTS][50];
+int patientAges[MAX_PATIENTS];
+int urgencyLevels[MAX_PATIENTS];
+int selectedSpecialties[MAX_PATIENTS];
+int isAdmitted[MAX_PATIENTS];
+int assignedWards[MAX_PATIENTS];
+int daysAdmitted[MAX_PATIENTS];
+
+int totalPatients = 0;
+
+void registerPatient() {
+    if (totalPatients >= MAX_PATIENTS) {
+        printf("Error: System capacity reached!\n");
+        return;
+    }
+
+    int idx = totalPatients;
+    patientIDs[idx] = 1001 + idx;
+
+    printf("\n--- Patient Registration (ID: PAT-%d) ---\n", patientIDs[idx]);
+    printf("Enter Patient Name: ");
+    getchar();
+    fgets(patientNames[idx], sizeof(patientNames[idx]), stdin);
+    patientNames[idx][strcspn(patientNames[idx], "\n")] = 0;
+
+    printf("Enter Age: ");
+    scanf("%d", &patientAges[idx]);
+
+    do {
+        printf("Enter Urgency Level (1 = Normal, 2 = Urgent, 3 = Critical): ");
+        scanf("%d", &urgencyLevels[idx]);
+    } while (urgencyLevels[idx] < 1 || urgencyLevels[idx] > 3);
+
+    do {
+        printf("Select Specialty ID (1-4): ");
+        scanf("%d", &selectedSpecialties[idx]);
+    } while (selectedSpecialties[idx] < 1 || selectedSpecialties[idx] > NUM_SPECIALTIES);
+    selectedSpecialties[idx] -= 1;
+
+    printf("Is Admitted to Ward? (1 = Yes, 0 = No): ");
+    scanf("%d", &isAdmitted[idx]);
+
+    totalPatients++;
+}
