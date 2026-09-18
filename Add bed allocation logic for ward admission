@@ -1,0 +1,30 @@
+// Inside registerPatient() after asking "Is Admitted to Ward?"
+if (isAdmitted[idx] == 1) {
+    do {
+        printf("Select Ward ID (1-4): ");
+        scanf("%d", &assignedWards[idx]);
+    } while (assignedWards[idx] < 1 || assignedWards[idx] > NUM_WARDS);
+    assignedWards[idx] -= 1;
+
+    printf("Enter Days Admitted: ");
+    scanf("%d", &daysAdmitted[idx]);
+
+    int bedAssigned = -1;
+    int wardIndex = assignedWards[idx];
+    for (int b = 0; b < WARD_CAPACITIES[wardIndex]; b++) {
+        if (bedOccupancy[wardIndex][b] == 0) {
+            bedOccupancy[wardIndex][b] = 1; // Mark occupied
+            bedAssigned = b + 1;
+            break;
+        }
+    }
+    if (bedAssigned == -1) {
+        printf("No beds available! Setting status to OPD.\n");
+        isAdmitted[idx] = 0;
+        assignedWards[idx] = -1;
+        daysAdmitted[idx] = 0;
+    }
+} else {
+    assignedWards[idx] = -1;
+    daysAdmitted[idx] = 0;
+}
